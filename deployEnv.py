@@ -40,7 +40,7 @@ def outPutInfo():
 
 
 # #yum install software
-streamObj = subprocess.call(['yum install -y gcc gcc-c++ kernel-devel wget'], shell=True)
+streamObj = subprocess.call(['yum install -y gcc gcc-c++ kernel-devel wget pcre-devel'], shell=True)
 streamObj = subprocess.call(['yum install -y cmake readline-devel pcre-devel openssl-devel openssl zlib zlib-devel pcre-devel'], shell=True)
 streamObj = subprocess.call(['yum install -y git'], shell=True)
 #
