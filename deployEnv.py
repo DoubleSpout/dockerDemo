@@ -40,7 +40,7 @@ def outPutInfo():
 
 
 # #yum install software
-streamObj = subprocess.call(['yum install -y gcc gcc-c++ kernel-devel wget pcre-devel'], shell=True)
+streamObj = subprocess.call(['yum install -y gcc gcc-c++ kernel-devel wget pcre-devel restorecon policycoreutils'], shell=True)
 streamObj = subprocess.call(['yum install -y cmake readline-devel pcre-devel openssl-devel openssl zlib zlib-devel pcre-devel'], shell=True)
 streamObj = subprocess.call(['yum install -y git'], shell=True)
 #
@@ -62,11 +62,10 @@ streamObj = subprocess.call(['tar -zxvf {0}'.format(softwareName)], cwd=INSTALL_
 streamObj = subprocess.call(['./configure'], cwd=softwarePath, shell=True)
 streamObj = subprocess.call(['make', 'make install'], cwd=softwarePath, shell=True)
 
-streamObj = subprocess.call(['rm -rf /usr/bin/python'],cwd=INSTALL_PATH, shell=True)
-streamObj = subprocess.call(['rm -rf /usr/sbin/python'],cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['rm -rf /usr/sbin/python27'],cwd=INSTALL_PATH, shell=True)
 streamObj = subprocess.call(['ln -s {0}/python /usr/sbin/python'.format(softwarePath)],cwd=INSTALL_PATH, shell=True)
 #show python version
-streamObj = subprocess.call(['python -V'], shell=True)
+streamObj = subprocess.call(['python27 -V'], shell=True)
 
 
 
@@ -394,10 +393,9 @@ f.close()
 #add auth and run
 streamObj = subprocess.call(['chmod 777 iptables.sh'],cwd=INSTALL_PATH, shell=True)
 streamObj = subprocess.call(['./iptables.sh'],cwd=INSTALL_PATH, shell=True)
-streamObj = subprocess.call(['/usr/libexec/iptables/iptables.init save'],cwd=INSTALL_PATH, shell=True)
 
-
-
+if CENTOS_VERSION == 7:
+    streamObj = subprocess.call(['/usr/libexec/iptables/iptables.init save'],cwd=INSTALL_PATH, shell=True)
 
 
 print ('all is done!')
