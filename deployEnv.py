@@ -12,11 +12,10 @@ NODEJS_URL = 'http://nodejs.org/dist/v0.10.32/node-v0.10.32.tar.gz'
 OPENRESTY_URL = 'http://openresty.org/download/ngx_openresty-1.7.4.1.tar.gz'
 MONGODB_URL = 'http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.5.tgz'
 PERCONA_URL = 'http://www.percona.com/redir/downloads/Percona-Server-5.6/LATEST/source/tarball/percona-server-5.6.21-69.0.tar.gz'
+PERCONA_CNF_URL = 'http://wzhfile.qiniudn.com/my.cnf'
 PERCONA_PWD = '123456'
 PYTHON27_URL = 'http://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 PIP_URL = 'https://bootstrap.pypa.io/get-pip.py'
-
-
 INSTALL_PARENT_FOLDER = '/var'
 INSTALL_FOLDER = 'devSoft'
 INSTALL_PATH = INSTALL_PARENT_FOLDER+'/'+INSTALL_FOLDER+'/'
@@ -40,104 +39,81 @@ def outPutInfo():
         print line
 
 
-
-
-
-
-
-#------------------------------------------------
-
-
-
-#
 # #yum install software
-# streamObj = subprocess.call(['yum install -y gcc gcc-c++ kernel-devel wget'], shell=True)
-# streamObj = subprocess.call(['yum install -y cmake readline-devel pcre-devel openssl-devel openssl zlib zlib-devel pcre-devel'], shell=True)
-# streamObj = subprocess.call(['yum install -y git'], shell=True)
+streamObj = subprocess.call(['yum install -y gcc gcc-c++ kernel-devel wget'], shell=True)
+streamObj = subprocess.call(['yum install -y cmake readline-devel pcre-devel openssl-devel openssl zlib zlib-devel pcre-devel'], shell=True)
+streamObj = subprocess.call(['yum install -y git'], shell=True)
 #
 # #mkdir install software folder
-# streamObj = subprocess.call(['mkdir {0}'.format(INSTALL_FOLDER)], cwd=INSTALL_PARENT_FOLDER, shell=True)
-# streamObj = subprocess.call(['chmod 777 {0}'.format(INSTALL_FOLDER)], cwd=INSTALL_PARENT_FOLDER, shell=True)
-#
-# #install python2.7.8
-# #get python tar
-#
-# streamObj = subprocess.call(['wget {0}'.format(PYTHON27_URL)],cwd=INSTALL_PATH, shell=True)
-# softwareName = os.path.basename(PYTHON27_URL)
-# softwarePath = INSTALL_PATH + os.path.splitext(softwareName)[0]
-# print(softwarePath)
-# streamObj = subprocess.call(['tar -zxvf {0}'.format(softwareName)], cwd=INSTALL_PATH, shell=True)
-# streamObj = subprocess.call(['./configure'], cwd=softwarePath, shell=True)
-# streamObj = subprocess.call(['make', 'make install'], cwd=softwarePath, shell=True)
-#
-# #show python version
-# streamObj = subprocess.call(['python -V'], shell=True)
-#
-#
-#
-#
-# #install pip
-#
-# streamObj = subprocess.call(['wget {0}'.format(PIP_URL)],cwd=INSTALL_PATH, shell=True)
-# softwareName = os.path.basename(PIP_URL)
-# softwarePath = INSTALL_PATH + softwareName
-# print(softwareName)
-# #run pip setup
-# streamObj = subprocess.call(['chmod 777 {0}'.format(softwarePath)], cwd=INSTALL_PATH, shell=True)
-# streamObj = subprocess.call(['python {0}'.format(softwareName)], cwd=INSTALL_PATH, shell=True)
-#
-# #install python package
-# streamObj = subprocess.call(['pip install flask', 'pip install gevent', 'pip install gunicorn'], shell=True)
-#
-# #create python work directory
-# streamObj = subprocess.call(['mkdir python', 'chomd 777 python'],cwd=INSTALL_PARENT_FOLDER, shell=True)
-# #show python pip list
-# streamObj = subprocess.call(['pip list'], shell=True)
+streamObj = subprocess.call(['mkdir {0}'.format(INSTALL_FOLDER)], cwd=INSTALL_PARENT_FOLDER, shell=True)
+streamObj = subprocess.call(['chmod 777 {0}'.format(INSTALL_FOLDER)], cwd=INSTALL_PARENT_FOLDER, shell=True)
+
+
+
+
+#install python2.7.8
+#get python tar
+streamObj = subprocess.call(['wget {0}'.format(PYTHON27_URL)],cwd=INSTALL_PATH, shell=True)
+softwareName = os.path.basename(PYTHON27_URL)
+softwarePath = INSTALL_PATH + os.path.splitext(softwareName)[0]
+print(softwarePath)
+
+streamObj = subprocess.call(['tar -zxvf {0}'.format(softwareName)], cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['./configure'], cwd=softwarePath, shell=True)
+streamObj = subprocess.call(['make', 'make install'], cwd=softwarePath, shell=True)
+
+streamObj = subprocess.call(['rm -rf /usr/bin/python'],cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['rm -rf /usr/sbin/python'],cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['ln -s {0}/python /usr/sbin/python'.format(softwarePath)],cwd=INSTALL_PATH, shell=True)
+#show python version
+streamObj = subprocess.call(['python -V'], shell=True)
+
+
+
+
+#install pip
+streamObj = subprocess.call(['wget {0}'.format(PIP_URL)],cwd=INSTALL_PATH, shell=True)
+softwareName = os.path.basename(PIP_URL)
+softwarePath = INSTALL_PATH + softwareName
+print(softwareName)
+#run pip setup
+streamObj = subprocess.call(['chmod 777 {0}'.format(softwarePath)], cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['python {0}'.format(softwareName)], cwd=INSTALL_PATH, shell=True)
+
+#install python package
+streamObj = subprocess.call(['pip install flask', 'pip install gevent', 'pip install gunicorn'], shell=True)
+
+#create python work directory
+streamObj = subprocess.call(['mkdir python', 'chomd 777 python'],cwd=INSTALL_PARENT_FOLDER, shell=True)
+#show python pip list
+streamObj = subprocess.call(['pip list'], shell=True)
 
 
 
 
 
 
+#install node.js
+#get nodejs tar
+streamObj = subprocess.call(['wget {0}'.format(NODEJS_URL)], cwd=INSTALL_PATH, shell=True)
 
+softwareName = os.path.basename(NODEJS_URL)
+softwarePath = INSTALL_PATH + os.path.splitext(os.path.splitext(softwareName)[0])[0]
+print(softwarePath)
 
+streamObj = subprocess.call(['tar -zxvf {0}'.format(softwareName)], cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['./configure'], cwd=softwarePath, shell=True)
+streamObj = subprocess.call(['make'], cwd=softwarePath, shell=True)
+streamObj = subprocess.call(['make install'], cwd=softwarePath, shell=True)
+#show node version
+streamObj = subprocess.call(['node -v', 'npm -v'], cwd=softwarePath, shell=True)
 
+#install pm2
+streamObj = subprocess.call(['npm install -g pm2 --unsafe-perm'],cwd=softwarePath, shell=True)
 
-
-
-
-#
-#
-# #install node.js
-# #get nodejs tar
-# streamObj = subprocess.call(['wget {0}'.format(NODEJS_URL)], cwd=INSTALL_PATH, shell=True)
-#
-# softwareName = os.path.basename(NODEJS_URL)
-# softwarePath = INSTALL_PATH + os.path.splitext(os.path.splitext(softwareName)[0])[0]
-# print(softwarePath)
-#
-# streamObj = subprocess.call(['tar -zxvf {0}'.format(softwareName)], cwd=INSTALL_PATH, shell=True)
-# streamObj = subprocess.call(['./configure'], cwd=softwarePath, shell=True)
-# streamObj = subprocess.call(['make'], cwd=softwarePath, shell=True)
-# streamObj = subprocess.call(['make install'], cwd=softwarePath, shell=True)
-# #show node version
-# streamObj = subprocess.call(['node -v', 'npm -v'], cwd=softwarePath, shell=True)
-#
-# #install pm2
-# streamObj = subprocess.call(['npm install -g pm2 --unsafe-perm'],cwd=softwarePath, shell=True)
-#
-# #create nodejs work directory
-# streamObj = subprocess.call(['mkdir nodejs'],cwd=INSTALL_PARENT_FOLDER, shell=True)
-#
-# streamObj = subprocess.call(['chmod 777 nodejs'],cwd=INSTALL_PARENT_FOLDER, shell=True)
-
-
-
-
-
-
-
-
+#create nodejs work directory
+streamObj = subprocess.call(['mkdir nodejs'],cwd=INSTALL_PARENT_FOLDER, shell=True)
+streamObj = subprocess.call(['chmod 777 nodejs'],cwd=INSTALL_PARENT_FOLDER, shell=True)
 
 
 
@@ -159,7 +135,7 @@ streamObj = subprocess.call(['rm -rf /usr/sbin/mongod'],cwd=INSTALL_PATH, shell=
 streamObj = subprocess.call(['rm -rf /usr/sbin/mongo'],cwd=INSTALL_PATH, shell=True)
 streamObj = subprocess.call(['rm -rf /usr/sbin/mongodump'],cwd=INSTALL_PATH, shell=True)
 streamObj = subprocess.call(['rm -rf /usr/sbin/mongorestore'],cwd=INSTALL_PATH, shell=True)
-
+#ln
 streamObj = subprocess.call(['ln -s {0} /usr/sbin/'.format(softwarePath+'/bin/mongod')],cwd=INSTALL_PATH, shell=True)
 streamObj = subprocess.call(['ln -s {0} /usr/sbin/'.format(softwarePath+'/bin/mongo')],cwd=INSTALL_PATH, shell=True)
 streamObj = subprocess.call(['ln -s {0} /usr/sbin/'.format(softwarePath+'/bin/mongodump')],cwd=INSTALL_PATH, shell=True)
@@ -175,8 +151,11 @@ streamObj = subprocess.call(['mongod  --dbpath={0} --fork --logpath={1}'.format(
 
 
 
-if True:
-    sys.exit(0)
+
+
+
+
+
 
 
 
@@ -218,6 +197,8 @@ testServerHost = '''server {
                       proxy_set_header Host $http_host;
                     }
                 }'''
+#del rf
+streamObj = subprocess.call(['rm -rf /opt/openresty/nginx/conf/serverHost.conf'], cwd=INSTALL_PATH, shell=True)
 f = open('/opt/openresty/nginx/conf/serverHost.conf','w')
 f.write(testServerHost+'\n')
 f.close()
@@ -235,23 +216,26 @@ streamObj = subprocess.call(['nginx'],cwd=softwarePath, shell=True)
 
 
 
-
 #install percona
-streamObj = subprocess.call(['wget %s'.format(PERCONA_URL)],cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['wget {0}'.format(PERCONA_URL)],cwd=INSTALL_PATH, shell=True)
 
-softwarePathList = PERCONA_URL.split('/')
-softwareName = softwarePathList[len(softwarePathList)-1]
-softwarePath = INSTALL_PATH + softwareName
+softwareName = os.path.basename(PERCONA_URL)
+softwarePath = INSTALL_PATH + os.path.splitext(os.path.splitext(softwareName)[0])[0]
 print(softwarePath)
-streamObj = subprocess.call(['tar -zxvf %s'.format(softwareName)] ,cwd=INSTALL_PATH, shell=True)
+
+#mkdir
+streamObj = subprocess.call(['mkdir mysql'],cwd=INSTALL_PARENT_FOLDER, shell=True)
+streamObj = subprocess.call(['mkdir data'],cwd=INSTALL_PARENT_FOLDER+'/mysql', shell=True)
+#tar
+streamObj = subprocess.call(['tar -zxvf {0}'.format(softwareName)] ,cwd=INSTALL_PATH, shell=True)
 
 configureParam = '''\
   -DCMAKE_BUILD_TYPE:STRING=Release             \
-  -DSYSCONFDIR:PATH=/var/mysql                  \
-  -DCMAKE_INSTALL_PREFIX:PATH=/var/mysql        \
+  -DSYSCONFDIR:PATH={0}/mysql                 \
+  -DCMAKE_INSTALL_PREFIX:PATH={0}/mysql        \
   -DENABLED_PROFILING:BOOL=ON                   \
   -DENABLE_DEBUG_SYNC:BOOL=OFF                  \
-  -DMYSQL_DATADIR:PATH=/var/mysql/data          \
+  -DMYSQL_DATADIR:PATH={0}/mysql/data          \
   -DMYSQL_MAINTAINER_MODE:BOOL=OFF              \
   -DWITH_EXTRA_CHARSETS:STRING=utf8,gbk,gb2312  \
   -DWITH_SSL:STRING=bundled                     \
@@ -260,64 +244,79 @@ configureParam = '''\
   -DWITH_PARTITION_STORAGE_ENGINE:BOOL=ON       \
   -DINSTALL_LAYOUT:STRING=STANDALONE            \
   -DCOMMUNITY_BUILD:BOOL=ON                     \
-  -LH'''
-streamObj = subprocess.call(['cmake . %s'.format(configureParam)], cwd=softwarePath, shell=True)
+  -LH'''.format(INSTALL_PARENT_FOLDER)
 
-streamObj = subprocess.call(['make', 'make install'], cwd=softwarePath, shell=True)
+print(configureParam)
+
+streamObj = subprocess.call(['cmake . {0}'.format(configureParam)], cwd=softwarePath, shell=True)
+streamObj = subprocess.call(['make'], cwd=softwarePath, shell=True)
+streamObj = subprocess.call(['make install'], cwd=softwarePath, shell=True)
+
 
 #echo lib
-streamObj = subprocess.call(['echo /var/mysql/lib/ >> /etc/ld.so.conf'], cwd=INSTALL_PATH, shell=True)
-
-streamObj = subprocess.call(['echo /var/mysql/lib/plugin >> /etc/ld.so.conf'], cwd=INSTALL_PATH, shell=True)
-
+streamObj = subprocess.call(['echo {0}/mysql/lib/ >> /etc/ld.so.conf'.format(INSTALL_PARENT_FOLDER)], cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['echo {0}/mysql/lib/plugin >> /etc/ld.so.conf'.format(INSTALL_PARENT_FOLDER)], cwd=INSTALL_PATH, shell=True)
 streamObj = subprocess.call(['ldconfig'], cwd=INSTALL_PATH, shell=True)
 
 #cp conf and service
-streamObj = subprocess.call(['cp %s /etc/my.cnf'.format(softwarePath+'/support-files/my-medium.cnf')], cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['rm -rf /etc/my.cnf'], shell=True)
+streamObj = subprocess.call(['rm -rf /etc/rc.d/init.d/mysqld'], shell=True)
 
-streamObj = subprocess.call(['cp %s /etc/rc.d/init.d/mysqld'.format(softwarePath+'/support-files/mysql.server')], cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['wget {0}'.format(PERCONA_CNF_URL)],cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['cp {0} /etc/my.cnf'.format(INSTALL_PATH+'my.cnf')], shell=True)
+streamObj = subprocess.call(['cp {0} /etc/rc.d/init.d/mysqld'.format(softwarePath+'/support-files/mysql.server')], shell=True)
 
 #chmod auth
-streamObj = subprocess.call(['chmod 700 /etc/rc.d/init.d/mysqld'],cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['chmod 700 /etc/rc.d/init.d/mysqld'], shell=True)
+streamObj = subprocess.call(['chkconfig --add mysqld'], shell=True)
+streamObj = subprocess.call(['chkconfig --level 345 mysqld on'], shell=True)
+streamObj = subprocess.call(['chmod 755 /etc/init.d/mysqld'], shell=True)
 
-streamObj = subprocess.call(['chkconfig --add mysqld'],cwd=INSTALL_PATH, shell=True)
+#del group user
+streamObj = subprocess.call(['userdel -r mysql'], shell=True)
+streamObj = subprocess.call(['groupdel mysql'], shell=True)
+#add group user
+streamObj = subprocess.call(['groupadd mysql'], shell=True)
+streamObj = subprocess.call(['useradd -g mysql -s /sbin/nologin mysql'], shell=True)
 
-streamObj = subprocess.call(['chkconfig --level 345 mysqld on'],cwd=INSTALL_PATH, shell=True)
+#chown and chmod
+streamObj = subprocess.call(['chown mysql:mysql -R {0}'.format(INSTALL_PARENT_FOLDER+'/mysql')], shell=True)
+streamObj = subprocess.call(['chmod -R 777 {0}'.format(INSTALL_PARENT_FOLDER+'/mysql')], shell=True)
 
-streamObj = subprocess.call(['chmod 755 /etc/init.d/mysqld'],cwd=INSTALL_PATH, shell=True)
-
-streamObj = subprocess.call(['groupadd mysql', 'useradd -g mysql -s /sbin/nologin'],cwd=INSTALL_PATH, shell=True)
 
 
 #soft link
-streamObj = subprocess.call(['rm -rf /usr/sbin/mysql'],cwd=INSTALL_PATH, shell=True)
-streamObj = subprocess.call(['ln -s /var/mysql/bin/mysql /usr/sbin/'],cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['rm -rf /usr/sbin/mysql'], shell=True)
+streamObj = subprocess.call(['rm -rf /usr/sbin/my_print_defaults'], shell=True)
+streamObj = subprocess.call(['ln -s {0} /usr/sbin/'.format(INSTALL_PARENT_FOLDER+'/mysql/bin/mysql')], shell=True)
+streamObj = subprocess.call(['ln -s {0} /usr/sbin/'.format(INSTALL_PARENT_FOLDER+'/mysql/bin/my_print_defaults')], shell=True)
 
 #set default
-streamObj = subprocess.call(['chmod 700 %s'.format(softwarePath+'/scripts/mysql_install_db')],cwd=INSTALL_PATH, shell=True)
-
-streamObj = subprocess.call([softwarePath+'/scripts/mysql_install_db -defaults-file=/etc/my.cnf --basedir=/var/mysql --user=mysql --datadir=/var/mysql/data'],cwd=INSTALL_PATH, shell=True)
-
-streamObj = subprocess.call(['chown mysql.mysql -R /var/mysql/'],cwd=INSTALL_PATH, shell=True)
-
+streamObj = subprocess.call(['chmod 755 {0}'.format(softwarePath+'/scripts/mysql_install_db')], shell=True)
+streamObj = subprocess.call([softwarePath+'/scripts/mysql_install_db -defaults-file=/etc/my.cnf --basedir={0}/mysql --user=mysql --datadir={0}/mysql/data'.format(INSTALL_PARENT_FOLDER)],cwd=INSTALL_PATH, shell=True)
 #start mysql
-streamObj = subprocess.call(['service mysqld start'],cwd=INSTALL_PATH, shell=True)
-
-streamObj = subprocess.call(['chmod 700 -r /var/mysql/'],cwd=INSTALL_PATH, shell=True)
-
-
+streamObj = subprocess.call(['service mysqld start'], shell=True)
 #create root auth
-mysqlCmd1 = 'grant all on *.* to root@"%" identified by "'+PERCONA_PWD+'";'
-mysqlCmd2 = 'FLUSH PRIVILEGES;'
-streamObj = subprocess.call(['chown mysql.mysql -R /var/mysql/'], stdin=PIPE, stdout=PIPE, stderr=STDOUT, shell=True)
+streamObj = subprocess.Popen(['mysql'], stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
+mysqlCmd1 = 'grant all on *.* to root@"%" identified by "'+PERCONA_PWD+'";\n'
+mysqlCmd2 = 'FLUSH PRIVILEGES;\n'
+mysqlCmd3 = 'exit;\n'
+#write to stdin
 streamObj.stdin.write(mysqlCmd1)
 streamObj.stdin.write(mysqlCmd2)
-streamObj.stdin.write('exit;')
+streamObj.stdin.write(mysqlCmd3)
+streamObj.stdin.close()
+
+
+
 
 
 
 #iptables start
+print ('centos version is: {0}'.format(CENTOS_VERSION))
+
 if CENTOS_VERSION == 7:
+
      #close firewall
     streamObj = subprocess.call(['systemctl disable firewalld'],cwd=INSTALL_PATH, shell=True)
     
@@ -394,13 +393,11 @@ f.write(centosIptables+'\n')
 f.close()
 #add auth and run
 streamObj = subprocess.call(['chmod 777 iptables.sh'],cwd=INSTALL_PATH, shell=True)
-
 streamObj = subprocess.call(['./iptables.sh'],cwd=INSTALL_PATH, shell=True)
-
 streamObj = subprocess.call(['/usr/libexec/iptables/iptables.init save'],cwd=INSTALL_PATH, shell=True)
 
 
 
 
 
-
+print ('all is done!')
