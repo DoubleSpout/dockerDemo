@@ -40,10 +40,14 @@ def outPutInfo():
 
 
 # #yum install software
-streamObj = subprocess.call(['yum install -y gcc gcc-c++ kernel-devel wget pcre-devel restorecon policycoreutils'], shell=True)
-streamObj = subprocess.call(['yum install -y cmake readline-devel pcre-devel openssl-devel openssl zlib zlib-devel pcre-devel'], shell=True)
+streamObj = subprocess.call(['yum install -y gcc gcc-c++ kernel-devel wget'], shell=True)
+streamObj = subprocess.call(['yum install -y openssl openssl-devel'], shell=True)
+streamObj = subprocess.call(['yum install -y pcre-devel restorecon policycoreutils'], shell=True)
+streamObj = subprocess.call(['yum install -y cmake readline-devel pcre-devel'], shell=True)
+streamObj = subprocess.call(['yum install -y zlib zlib-devel pcre-devel'], shell=True)
 streamObj = subprocess.call(['yum install -y git'], shell=True)
-#
+
+
 # #mkdir install software folder
 streamObj = subprocess.call(['mkdir {0}'.format(INSTALL_FOLDER)], cwd=INSTALL_PARENT_FOLDER, shell=True)
 streamObj = subprocess.call(['chmod 777 {0}'.format(INSTALL_FOLDER)], cwd=INSTALL_PARENT_FOLDER, shell=True)
