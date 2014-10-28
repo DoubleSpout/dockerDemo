@@ -297,7 +297,11 @@ streamObj = subprocess.call(['ln -s {0} /usr/sbin/'.format(INSTALL_PARENT_FOLDER
 #set default
 streamObj = subprocess.call(['chmod 755 {0}'.format(softwarePath+'/scripts/mysql_install_db')], shell=True)
 streamObj = subprocess.call([softwarePath+'/scripts/mysql_install_db -defaults-file=/etc/my.cnf --basedir={0}/mysql --user=mysql --datadir={0}/mysql/data'.format(INSTALL_PARENT_FOLDER)],cwd=INSTALL_PATH, shell=True)
+
 #start mysql
+streamObj = subprocess.call(['service mysqld start'], shell=True)
+streamObj = subprocess.call(['service mysqld stop'], shell=True)
+streamObj = subprocess.call(['pkill mysqld'], shell=True)
 streamObj = subprocess.call(['service mysqld start'], shell=True)
 #create root auth
 streamObj = subprocess.Popen(['mysql'], stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
