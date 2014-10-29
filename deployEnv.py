@@ -46,6 +46,8 @@ streamObj = subprocess.call(['yum install -y pcre-devel restorecon policycoreuti
 streamObj = subprocess.call(['yum install -y cmake readline-devel pcre-devel'], shell=True)
 streamObj = subprocess.call(['yum install -y zlib zlib-devel pcre-devel'], shell=True)
 streamObj = subprocess.call(['yum install -y git'], shell=True)
+streamObj = subprocess.call(['yum install -y mysql-client'], shell=True)
+
 
 
 # #mkdir install software folder
@@ -68,14 +70,17 @@ streamObj = subprocess.call(['make', 'make install'], cwd=softwarePath, shell=Tr
 
 streamObj = subprocess.call(['rm -rf /usr/sbin/python27'],cwd=INSTALL_PATH, shell=True)
 streamObj = subprocess.call(['ln -s {0}/python /usr/sbin/python'.format(softwarePath)],cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['ln -s {0}/python /usr/local/bin/python2.7'.format(softwarePath)],cwd=INSTALL_PATH, shell=True)
+
 #show python version
 streamObj = subprocess.call(['python27 -V'], shell=True)
+streamObj = subprocess.call(['yum -y install MySQL-python'], shell=True)
 
 
 
 
 #install pip
-streamObj = subprocess.call(['wget {0}'.format(PIP_URL)],cwd=INSTALL_PATH, shell=True)
+streamObj = subprocess.call(['wget --no-check-certificate {0}'.format(PIP_URL)],cwd=INSTALL_PATH, shell=True)
 softwareName = os.path.basename(PIP_URL)
 softwarePath = INSTALL_PATH + softwareName
 print(softwareName)
@@ -84,8 +89,9 @@ streamObj = subprocess.call(['chmod 777 {0}'.format(softwarePath)], cwd=INSTALL_
 streamObj = subprocess.call(['python {0}'.format(softwareName)], cwd=INSTALL_PATH, shell=True)
 
 #install python package
-streamObj = subprocess.call(['pip install flask', 'pip install gevent', 'pip install gunicorn'], shell=True)
 
+#streamObj = subprocess.call(['pip install Flask-SQLAlchemy'], shell=True)
+#streamObj = subprocess.call(['pip install Flask', 'pip install Flask-WTF', 'pip install Jinja2', 'pip install Flask-DebugToolbar', 'pip install Flask-MySQL', 'pip install Flask-SQLAlchemy'], shell=True)
 #create python work directory
 streamObj = subprocess.call(['mkdir python', 'chomd 777 python'],cwd=INSTALL_PARENT_FOLDER, shell=True)
 #show python pip list
