@@ -11,7 +11,7 @@ from subprocess import *
 NODEJS_URL = 'http://nodejs.org/dist/v0.10.32/node-v0.10.32.tar.gz'
 OPENRESTY_URL = 'http://openresty.org/download/ngx_openresty-1.7.4.1.tar.gz'
 MONGODB_URL = 'http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.5.tgz'
-PERCONA_URL = 'http://www.percona.com/redir/downloads/Percona-Server-5.6/LATEST/source/tarball/percona-server-5.6.21-69.0.tar.gz'
+PERCONA_URL = 'http://www.percona.com/redir/downloads/Percona-Server-5.6/LATEST/source/tarball/percona-server-5.6.21-70.0.tar'
 PERCONA_CNF_URL = 'http://wzhfile.qiniudn.com/my.cnf'
 PERCONA_PWD = '123456'
 PYTHON27_URL = 'http://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
