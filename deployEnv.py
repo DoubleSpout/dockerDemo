@@ -10,8 +10,8 @@ from subprocess import *
 
 NODEJS_URL = 'http://nodejs.org/dist/v0.10.32/node-v0.10.32.tar.gz'
 OPENRESTY_URL = 'http://openresty.org/download/ngx_openresty-1.7.4.1.tar.gz'
-MONGODB_URL = 'http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.5.tgz'
-PERCONA_URL = 'http://www.percona.com/redir/downloads/Percona-Server-5.6/LATEST/source/tarball/percona-server-5.6.21-69.0.tar.gz'
+MONGODB_URL = 'http://wzhsoft.qiniudn.com/mongodb-linux-x86_64-2.6.5.tgz'
+PERCONA_URL = 'http://wzhsoft.qiniudn.com/Percona-Server-5.6.21-rel70.0-688.Linux.x86_64.tar.gz'
 PERCONA_CNF_URL = 'http://wzhfile.qiniudn.com/my.cnf'
 PERCONA_PWD = '123456'
 PYTHON27_URL = 'http://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
@@ -60,7 +60,7 @@ streamObj = subprocess.call(['chmod 777 {0}'.format(INSTALL_FOLDER)], cwd=INSTAL
 #install python2.7.8
 #get python tar
 streamObj = subprocess.call(['wget {0}'.format(PYTHON27_URL)],cwd=INSTALL_PATH, shell=True)
-softwareName = os.path.basename(PYTHON27_URL)
+softwareName = os.path.basename(PYTHON27_URL).split('?')[0]
 softwarePath = INSTALL_PATH + os.path.splitext(softwareName)[0]
 print(softwarePath)
 
@@ -81,7 +81,7 @@ streamObj = subprocess.call(['yum -y install MySQL-python'], shell=True)
 
 #install pip
 streamObj = subprocess.call(['wget --no-check-certificate {0}'.format(PIP_URL)],cwd=INSTALL_PATH, shell=True)
-softwareName = os.path.basename(PIP_URL)
+softwareName = os.path.basename(PIP_URL).split('?')[0]
 softwarePath = INSTALL_PATH + softwareName
 print(softwareName)
 #run pip setup
@@ -106,7 +106,7 @@ streamObj = subprocess.call(['pip list'], shell=True)
 #get nodejs tar
 streamObj = subprocess.call(['wget {0}'.format(NODEJS_URL)], cwd=INSTALL_PATH, shell=True)
 
-softwareName = os.path.basename(NODEJS_URL)
+softwareName = os.path.basename(NODEJS_URL).split('?')[0]
 softwarePath = INSTALL_PATH + os.path.splitext(os.path.splitext(softwareName)[0])[0]
 print(softwarePath)
 
@@ -135,7 +135,7 @@ streamObj = subprocess.call(['chmod 777 nodejs'],cwd=INSTALL_PARENT_FOLDER, shel
 #get mongodb
 streamObj = subprocess.call(['wget {0}'.format(MONGODB_URL)], cwd=INSTALL_PATH, shell=True)
 
-softwareName = os.path.basename(MONGODB_URL)
+softwareName = os.path.basename(MONGODB_URL).split('?')[0]
 softwarePath = INSTALL_PATH + os.path.splitext(softwareName)[0]
 print(softwarePath)
 streamObj = subprocess.call(['tar -zxvf {0}'.format(softwareName)], cwd=INSTALL_PATH, shell=True)
@@ -171,7 +171,7 @@ streamObj = subprocess.call(['mongod  --dbpath={0} --fork --logpath={1}'.format(
 #install openresty
 streamObj = subprocess.call(['wget {0}'.format(OPENRESTY_URL)], cwd=INSTALL_PATH, shell=True)
 
-softwareName = os.path.basename(OPENRESTY_URL)
+softwareName = os.path.basename(OPENRESTY_URL).split('?')[0]
 softwarePath = INSTALL_PATH + os.path.splitext(os.path.splitext(softwareName)[0])[0]
 
 print(softwarePath)
@@ -228,7 +228,7 @@ streamObj = subprocess.call(['nginx'],cwd=softwarePath, shell=True)
 #install percona
 streamObj = subprocess.call(['wget {0}'.format(PERCONA_URL)],cwd=INSTALL_PATH, shell=True)
 
-softwareName = os.path.basename(PERCONA_URL)
+softwareName = os.path.basename(PERCONA_URL).split('?')[0]
 softwarePath = INSTALL_PATH + os.path.splitext(os.path.splitext(softwareName)[0])[0]
 print(softwarePath)
 
