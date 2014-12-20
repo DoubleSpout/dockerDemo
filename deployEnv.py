@@ -321,6 +321,9 @@ streamObj.stdin.write(mysqlCmd2)
 streamObj.stdin.write(mysqlCmd3)
 streamObj.stdin.close()
 
+streamObj = subprocess.call(['yum install -y mysql-devel'], shell=True)
+streamObj = subprocess.call(['yum install -y MySQL-python'], shell=True)
+
 
 
 
