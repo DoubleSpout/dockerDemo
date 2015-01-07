@@ -45,6 +45,8 @@ streamObj = subprocess.call(['yum install -y openssl openssl-devel'], shell=True
 streamObj = subprocess.call(['yum install -y pcre-devel restorecon policycoreutils'], shell=True)
 streamObj = subprocess.call(['yum install -y cmake readline-devel pcre-devel'], shell=True)
 streamObj = subprocess.call(['yum install -y zlib zlib-devel pcre-devel'], shell=True)
+#py mysql
+streamObj = subprocess.call(['yum install python-devel mysql-devel zlib-devel openssl-devel'], shell=True)
 streamObj = subprocess.call(['yum install -y git'], shell=True)
 streamObj = subprocess.call(['yum install -y mysql-client'], shell=True)
 
